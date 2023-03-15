@@ -5,14 +5,14 @@ from fastapi import (
     status,
     UploadFile,
     File
-) 
+)
 import torch
 import torch.nn as nn
 from dependency_injector.wiring import (
     inject,
 )
 from typing import List
-from base import Base64Response, Base64Request
+from base import Base64Request, BaseResponse
 from inference import InferenceModel
 from models.model import TestModel
 # import args
@@ -75,9 +75,9 @@ async def inference(request: Base64Request):
           status_code=status.HTTP_200_OK,
           summary="inference path")
 @inject
-async def inference_path(img_path: str):
+async def inference_path(path: BaseResponse):
     infer_model = InferenceModel(model, device)
-    file, pred = infer_model.inference_all(img_path)
+    pred = infer_model.inference_all(path.img_folder)
     return {"prediction": pred}
 
 

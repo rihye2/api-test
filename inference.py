@@ -6,7 +6,6 @@ from models.dataset import TestDataset
 from models.model import TestModel
 from torchvision import transforms
 import numpy as np
-
 @logged
 class InferenceModel:
     """
@@ -42,7 +41,8 @@ class InferenceModel:
             transforms.ToPILImage(),
             transforms.Resize((512,512)),
             transforms.ToTensor(),
-            #transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+            
+                                        #transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
                                         ])
         image = transform(image).unsqueeze(0)
         self.model.eval()
