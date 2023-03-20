@@ -25,6 +25,20 @@ import numpy as np
 
 
 import os
+import logging
+log = logging.getLogger('inference_history')
+log.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s %(levelname)s:%(message)s')
+streamhandler = logging.StreamHandler()
+# filehandler = logging.FileHandler()
+streamhandler.setFormatter(formatter)
+log.addHandler(streamhandler)
+
+# logging.basicConfig(
+#     # format='%(asctime)s %(levelname)s:%(message)s',
+#     level=logging.DEBUG,
+#     datefmt='%m/%d/%Y %I:%M:%S %p',
+# )
 
 cuda = False
 lr = 0.001
@@ -85,13 +99,24 @@ async def inference_path(path: BaseResponse):
           status_code=status.HTTP_200_OK,
           summary="upload image files")
 @inject
-async def create_upload_files(image: UploadFile = File(...)):
-    image_bytes = await image.read()
+async def create_upload_files(imagefile: UploadFile = File(...)):
+    
+    image_bytes = await imagefile.read()
     dataByteIo = io.BytesIO(image_bytes)
     image = Image.open(dataByteIo).convert('RGB')
     array_image = cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
     
-    infer_model = InferenceModel(model, device)
+    infer_model = InferenceModel(model, device, 'resnet18', '1.1')
+    # log.info('info')
+    
+    msg = str(
+                {"image_id": imagefile.filename,
+                #  "image_size": imagefile.size,
+               "model_name": infer_model.model_name,
+                "model_version": infer_model.model_version,
+               }
+    )
+    log.debug(msg)
     result = infer_model.inference(array_image)
     return {"prediction":result}
 

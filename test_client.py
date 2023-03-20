@@ -65,18 +65,19 @@ class testapi:
                                     headers=self.headers, 
                                     json={'img_folder': img_path})
 
+            print(response.status_code)
             assert response.status_code == 200
             end_time = time.time()
             total_time = end_time - start_time
             result.append(total_time)
-
+        # return total_time    
         return print("image folder average time:", np.round(sum(result)/self.count,3))
 
         
 if __name__ == '__main__':
     path = "/Users/hyeri/Downloads/real_test_img_crop/testimg.jpeg"
-    tester = testapi(1, path)
-    tester.base64_requests()
-    tester.uploadimage_requests()
+    tester = testapi(5, path)
+    # tester.base64_requests()
+    # tester.uploadimage_requests()
     tester.path_requests()
     

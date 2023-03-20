@@ -13,11 +13,15 @@ class InferenceModel:
     def __init__(self,
                  model: TestModel,
                  device,
+                 model_name: str,
+                 model_version: str
                 )-> None:
     
         self.model = model
         self.device = device
-    
+        self.model_name = model_name
+        self.model_version = model_version
+        
     def inference_all(self, image_path):
         infer_dataset = TestDataset(image_path)
         infer_loader = DataLoader(infer_dataset, batch_size=1, shuffle=False)
