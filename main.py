@@ -1,13 +1,10 @@
-
-
 from fastapi import (
     FastAPI, 
     status,
     UploadFile,
-    File
+    File,
 )
 import torch
-import torch.nn as nn
 from dependency_injector.wiring import (
     inject,
 )
@@ -23,22 +20,30 @@ import io
 from PIL import Image
 import numpy as np
 
-
-import os
 import logging
-log = logging.getLogger('inference_history')
-log.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s %(levelname)s:%(message)s')
-streamhandler = logging.StreamHandler()
-# filehandler = logging.FileHandler()
-streamhandler.setFormatter(formatter)
-log.addHandler(streamhandler)
+from logging.handlers import RotatingFileHandler
+import os
+import time
+from filelog import FileLogging
 
-# logging.basicConfig(
-#     # format='%(asctime)s %(levelname)s:%(message)s',
-#     level=logging.DEBUG,
-#     datefmt='%m/%d/%Y %I:%M:%S %p',
-# )
+
+# logger = logging.getLogger('inference_history')
+# logger.setLevel(logging.DEBUG)
+
+log_dir = '/Users/hyeri/cloudai/sko-xray-poc/logs'
+log_fname = 'log.txt'
+path = os.path.join(log_dir, log_fname)
+
+# rotating_file_handler = RotatingFileHandler(path, mode='w', maxBytes=1024, backupCount=5)
+# formatter = logging.Formatter('[%(levelname)s] :: %(asctime)s :: %(module)s ::%(name)s :: %(message)s\n')
+
+# rotating_file_handler.setFormatter(formatter)
+
+# logger.addHandler(rotating_file_handler)
+
+
+logger = FileLogging('infer', path)
+log = logger.rotating_file_handler()
 
 cuda = False
 lr = 0.001
@@ -100,41 +105,79 @@ async def inference_path(path: BaseResponse):
           summary="upload image files")
 @inject
 async def create_upload_files(imagefile: UploadFile = File(...)):
+    #start time 
+    start_time = time.time()
     
     image_bytes = await imagefile.read()
     dataByteIo = io.BytesIO(image_bytes)
     image = Image.open(dataByteIo).convert('RGB')
     array_image = cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
     
+    img_load_end = time.time()
     infer_model = InferenceModel(model, device, 'resnet18', '1.1')
-    # log.info('info')
+    
+    result = infer_model.inference(array_image)
+    #end time
+    end_time = time.time()
     
     msg = str(
                 {"image_id": imagefile.filename,
-                #  "image_size": imagefile.size,
                "model_name": infer_model.model_name,
                 "model_version": infer_model.model_version,
+                "image load time": np.round(img_load_end - start_time, 3),
+                "inference time": np.round(end_time - img_load_end, 3)
                }
     )
+    
     log.debug(msg)
+    
+    return {"prediction":result}
+
+
+@app.post("/uploadimages/",
+          status_code=status.HTTP_200_OK,
+          summary="upload image files")
+@inject
+async def create_upload_files(imagefile: UploadFile = File(...)):
+    #start time 
+    start_time = time.time()
+    
+    image_bytes = await imagefile.read()
+    dataByteIo = io.BytesIO(image_bytes)
+    image = Image.open(dataByteIo).convert('RGB')
+    array_image = cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
+    
+    img_load_end = time.time()
+    infer_model = InferenceModel(model, device, 'resnet18', '1.1')
+    
     result = infer_model.inference(array_image)
+    #end time
+    end_time = time.time()
+    
+    msg = str(
+                {"image_id": imagefile.filename,
+               "model_name": infer_model.model_name,
+                "model_version": infer_model.model_version,
+                "image load time": np.round(img_load_end - start_time, 3),
+                "inference time": np.round(end_time - img_load_end, 3)
+               }
+    )
+    
+    log.debug(msg)
+    
     return {"prediction":result}
 
 
 
-# @app.post("/inference")
-# async def inference(img_path: str):
-    
-#     file_list = os.listdir(img_path)
-    
-#     input_list = []
-#     for file_name in file_list:
-#         image_path = os.path.join(img_path, file_name)
-#         image = Image.open(image_path).convert('RGB')
-#         input_list.append(image)
-        
-        
-        
-        
-    
+
+
+
+
+
+
+# @app.post("/stat/", 
+#           status_code=status.HTTP_200_OK,
+#           summary="stat")
+# @inject
+# async def stat(log):
     

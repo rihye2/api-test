@@ -1,0 +1,2 @@
+[DEBUG] :: 2023-03-27 11:21:49,539 :: main ::infer :: {'image_id': 'testimg.jpeg', 'model_name': 'resnet18', 'model_version': '1.1', 'image load time': 0.2, 'inference time': 0.365}
+
