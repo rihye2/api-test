@@ -6,6 +6,12 @@ from models.dataset import TestDataset
 from models.model import TestModel
 from torchvision import transforms
 import numpy as np
+import io
+from PIL import Image
+import cv2
+
+
+
 @logged
 class InferenceModel:
     """
@@ -40,15 +46,18 @@ class InferenceModel:
         return pred
     
     
-    def inference(self, image):
+    def inference(self, image_bytes):
         transform = transforms.Compose([
             transforms.ToPILImage(),
             transforms.Resize((512,512)),
             transforms.ToTensor(),
-            
-                                        #transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+            #transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
                                         ])
-        image = transform(image).unsqueeze(0)
+        dataByteIo = io.BytesIO(image_bytes)
+        image = Image.open(dataByteIo).convert('RGB')
+        array_image = cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
+        
+        image = transform(array_image).unsqueeze(0)
         self.model.eval()
         with torch.no_grad():
             output = self.model(image)

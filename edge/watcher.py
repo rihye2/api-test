@@ -1,28 +1,32 @@
+# 필요한 모듈 import
 from watchdog.observers import Observer
 from watchdog.events import LoggingEventHandler, FileSystemEventHandler 
 import logging
 import time
 import multiprocessing
+from multiprocessing import Pool
+
 import requests
-from filelog import FileLogging
 import os
-#LoggingEventHandler : Logs all the events captured
-#observer thread that schedules watching directories and dispatches calls to event handlers
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+
+# logger 및 process 모듈 import
+from filelog import MultiprocessingLog
+import os
+from multiprocessing import current_process
+from multiprocess_logging import mpLogging
+
 
 class Watcher:
-    
     def __init__(self, path):
-        self.observer = Observer()
+        self.observer = Observer() # Observer 객체 생성
         self.path = path
-        self.queue = multiprocessing.Queue()
         
     def run(self): 
-        logging.basicConfig(level=logging.INFO, format='%(asctime)s-%(message)s',
-                            datefmt='%Y-%m-%d %H:%M:%S')
-
-        event_handler = CustomHandler(self.path, self.queue)
-        # event_handler = EventHandler(self.path, self.queue)
-    
+        event_handler = CustomHandler(self.path)
+        
+        # observer에 event_handler 등록
         self.observer.schedule(event_handler, self.path, recursive=True)
         self.observer.start()
 
@@ -32,66 +36,49 @@ class Watcher:
         
         except KeyboardInterrupt:
             self.observer.stop()
-        
-        self.observer.join()
-        self.queue.put('done')
-        
-        return self.queue
+            self.observer.join()
+
                 
 class CustomHandler(FileSystemEventHandler):
     
-    def __init__(self, path, queue):
+    def __init__(self, path):
         super().__init__()
         self.path = path
-        self.queue = queue
 
     def on_created(self, event):
-        # filename = os.path.basename(event.src_path)
+        # 파일 생성 이벤트 발생 시, .jpg 확장자를 가진 이미지 파일만 처리
         if event.src_path.endswith('.jpg'):
-            self.queue.put(event.src_path) 
-            #created된 img file path를 queue에 넣어줌
-        return print('created')
-
-class EventHandler(LoggingEventHandler):
-    def __init__(self, path, queue):
-        super().__init__()
-        self.path = path
-        self.queue = queue
         
-    def on_created(self, event):
-        if event.src_path.endswith('.jpg'):
-            self.queue.put(event.src_path) #created된 img file path를 queue에 넣어줌
-            
-    # def on_moved(self, event):
-        # if os.path.basename(event.src_path).endswith('.jpg'):
+            print(">>>>>>>>>>>>>>>1", event.src_path)
+            # 이미지 파일 경로를 fn_process 함수에 전달하여 비동기적으로 처리
+            pool.apply_async(fn_process, (event.src_path, ))
+            print(">>>>>>>>>>>>>>>2", event.src_path)
+            #move or delete
         
 
-def child_process(img_path):
-    response = requests.post("https://localhost:8000/inference_all", json={'img_folder': img_path})
-    return response.json()
+def fn_process(img_path):
+    print(">>>>>>>>> fn_process : start")
+    res = mplogger.print_process(img_path)
+    print(">>>>>>>>> fn_process : end - ", res)
+    return print('!!')
 
+# Global 변수 선언
+multilogging = MultiprocessingLog()
+logger = multilogging.logging_child()
+mplogger = mpLogging(logger)
 
 if __name__ == '__main__':
-    
-    # queue = multiprocessing.Queue()
-    filelogging = FileLogging('logging', 'child_process.log')
-    queue_listner, queue = filelogging.rotating_file_handler()
-    watch = Watcher(path='./images/')
-    pool = multiprocessing.Pool(5, filelogging.worker_init, [queue])
-    
-    #process 생성 여기서 
-    #child에서 log 찍어서 각 pid 별로 path를 제대로 받았는지 확인
-    q = watch.run()
-    while True:
-        if not q.empty():
-            img_path = q.get()
-            # pool.starmap_async(child_process, args=img_path)
-            result= pool.map(filelogging.log_msg, img_path)
-            print(result)
-            if img_path == 'done':
-                break
-                
-        
 
+    # logging 설정
+    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s-%(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 
+    # 프로세스 풀 생성
+    pool = Pool(5)
+
+    # 이미지 감지 시작
+    watcher = Watcher(path='./images/')
+    watcher.run()
     
+    # 프로세스 풀 종료
+    pool.close()
+    pool.join()

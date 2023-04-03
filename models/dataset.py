@@ -7,16 +7,19 @@ from PIL import Image
 import pandas as pd
 from torchvision import transforms
 
+
+## 데이터 로더를 구현하기
 class Dataset(torch.utils.data.Dataset):
     def __init__(self, transform=None):
         self.transform = transform
-        img_path = ''
+        img_path = '/home/user01/pill_data/pill_test_only/220426'
 
         img_lst = os.listdir(img_path)
 
         cls_input=[]
         cls_label=[]
         
+        # import pdb; pdb.set_trace()
         for i in img_lst:
             input_ = cv2.imread(os.path.join(img_path, i))
             cls_input.append(input_)

@@ -11,7 +11,6 @@ class TestModel(nn.Module):
         
     def forward(self, x):
         model = self.net(x)
-        
         # model.fc = nn.Sequential(
         #     nn.Dropout(0.5),
         #     nn.Linear(self.num_features, 512),
