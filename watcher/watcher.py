@@ -1,30 +1,30 @@
 # 필요한 모듈 import
 from watchdog.observers import Observer
 from watchdog.events import LoggingEventHandler, FileSystemEventHandler 
-import logging
-import time
-import multiprocessing
 from multiprocessing import Pool
-
-import requests
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 # logger 및 process 모듈 import
-from filelog import MultiprocessingLog
-import os
+from filehandler import MultiprocessingHandler
 from multiprocessing import current_process
 from multiprocess_logging import mpLogging
+import logging
+import time
+from time_format import time_format
+
 
 
 class Watcher:
-    def __init__(self, path):
+    def __init__(self, path, logger):
         self.observer = Observer() # Observer 객체 생성
         self.path = path
-        
+
+        self.logger = logger
+
     def run(self): 
-        event_handler = CustomHandler(self.path)
+        event_handler = CustomHandler(self.path, self.logger)
         
         # observer에 event_handler 등록
         self.observer.schedule(event_handler, self.path, recursive=True)
@@ -41,29 +41,33 @@ class Watcher:
                 
 class CustomHandler(FileSystemEventHandler):
     
-    def __init__(self, path):
+    def __init__(self, path, logger):
         super().__init__()
         self.path = path
+        self.logger = logger
 
     def on_created(self, event):
         # 파일 생성 이벤트 발생 시, .jpg 확장자를 가진 이미지 파일만 처리
-        if event.src_path.endswith('.jpg'):
+        _, str_time = time_format()
+        self.logger.info(f">>>>>>>>> [Created] {event.src_path}: {str_time}")
         
+        if event.src_path.endswith('.jpg'):
+            
             print(">>>>>>>>>>>>>>>1", event.src_path)
             # 이미지 파일 경로를 fn_process 함수에 전달하여 비동기적으로 처리
             pool.apply_async(fn_process, (event.src_path, ))
-            print(">>>>>>>>>>>>>>>2", event.src_path)
+            
             #move or delete
         
 
 def fn_process(img_path):
     print(">>>>>>>>> fn_process : start")
-    res = mplogger.print_process(img_path)
-    print(">>>>>>>>> fn_process : end - ", res)
-    return print('!!')
+    img = mplogger.print_process(img_path)
+    print(">>>>>>>>> fn_process : end - ", img)
+    
 
 # Global 변수 선언
-multilogging = MultiprocessingLog()
+multilogging = MultiprocessingHandler()
 logger = multilogging.logging_child()
 mplogger = mpLogging(logger)
 
@@ -76,7 +80,7 @@ if __name__ == '__main__':
     pool = Pool(5)
 
     # 이미지 감지 시작
-    watcher = Watcher(path='./images/')
+    watcher = Watcher(path='images', logger=logger)
     watcher.run()
     
     # 프로세스 풀 종료

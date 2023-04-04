@@ -1,0 +1,20 @@
+
+url_inference_all: 'http://localhost:8000/inference_all'
+url_inference_image: 'http://localhost:8000/inference_image'
+url_uploadimages: 'http://localhost:8000/uploadimages'
+url_base64str: 'http://localhost:8000/inference_base64str'
+# log_save_path: 'watcher/logging'
+
+
+
+
+# model_name: 'resnet-test'
+# model_version: 'test-1.1'
+# batch_size: 1
+# lr: 0.001
+# cuda: False
+# #device: 
+
+# log_dir: '/Users/hyeri/cloudai/sko-xray-poc/logs'
+# log_main_file: 'log.txt'
+# logging_file: 'edge.log'

@@ -1,8 +1,8 @@
 import logging
-from logging.handlers import RotatingFileHandler, TimedRotatingFileHandler, QueueHandler
+from logging.handlers import RotatingFileHandler, QueueHandler
 import multiprocessing
-from multiprocessing import current_process
-import time
+
+
 
 class FileLogging:
     def __init__(self, name, file_name) -> None:
@@ -27,27 +27,3 @@ class FileLogging:
         logger.addHandler(rotating_file_handler)
         
             
-class MultiprocessingLog(logging.Handler):
-    def __init__(self):
-        
-        self._handler = TimedRotatingFileHandler('testest.log',
-                                when='H', #시간 단위 저장
-                                interval=1,
-                                backupCount=5,)
-        
-    def logging_child(self):
-    
-        self._handler.setLevel(logging.INFO)
-        
-        formatter = logging.Formatter("%(asctime)s %(processName)s %(levelname)s %(message)s")
-
-        self._handler.suffix = 'log-%Y%m%d_%H-%M-%S'
-        self._handler.setFormatter(formatter)
-        
-        logger = logging.getLogger()
-        logger.setLevel(logging.DEBUG)
-        logger.addHandler(self._handler)
-        
-        return logger
-
-

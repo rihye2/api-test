@@ -1,0 +1,5 @@
+2023-04-04 13:57:54,476 SpawnPoolWorker-4 INFO >>>>>>>>> [Inference start] : 2023-04-04 01:57:54 PM | [Process]-56801
+2023-04-04 13:59:04,064 SpawnPoolWorker-4 INFO >>>>>>>>> [Image path] : /Users/hyeri/cloudai/sko-xray-poc/images/197800303_1.jpg [Process time] - 2023-04-04 01:59:04 PM | [Process]-56801 
+2023-04-04 13:59:04,064 SpawnPoolWorker-4 INFO >>>>>>>>> [Inference start] : 2023-04-04 01:59:04 PM | [Process]-56801
+2023-04-04 13:59:04,504 SpawnPoolWorker-4 INFO >>>>>>>>> [Inference Result] : {'prediction': 861} | [Process]-56801
+2023-04-04 13:59:04,505 SpawnPoolWorker-4 INFO >>>>>>>>> [Inference total time] : 0.44 | [Process]-56801

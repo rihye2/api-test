@@ -1,0 +1,20 @@
+2023-04-04 16:42:19,232 MainProcess INFO >>>>>>>>> [Created] images/201308928_2.jpg: 2023-04-04 04:42:19 PM
+2023-04-04 16:42:19,234 MainProcess INFO >>>>>>>>> [Created] images/199702182_2.jpg: 2023-04-04 04:42:19 PM
+2023-04-04 16:43:22,226 MainProcess INFO >>>>>>>>> [Created] images/201308928_2.jpg: 2023-04-04 04:43:22 PM
+2023-04-04 16:43:22,226 MainProcess INFO >>>>>>>>> [Created] images/199702182_2.jpg: 2023-04-04 04:43:22 PM
+2023-04-04 16:44:52,114 MainProcess INFO >>>>>>>>> [Created] images/199702182_2.jpg: 2023-04-04 04:44:52 PM
+2023-04-04 16:44:52,114 MainProcess INFO >>>>>>>>> [Created] images/201308928_2.jpg: 2023-04-04 04:44:52 PM
+2023-04-04 16:44:52,118 ForkPoolWorker-1 INFO >>>>>>>>> [Inference start] : 2023-04-04 04:44:52 PM | [Process]-65293
+2023-04-04 16:44:52,118 ForkPoolWorker-2 INFO >>>>>>>>> [Inference start] : 2023-04-04 04:44:52 PM | [Process]-65294
+2023-04-04 16:45:55,864 MainProcess INFO >>>>>>>>> [Created] images/201308928_2.jpg: 2023-04-04 04:45:55 PM
+2023-04-04 16:45:55,864 MainProcess INFO >>>>>>>>> [Created] images/199702182_2.jpg: 2023-04-04 04:45:55 PM
+2023-04-04 16:45:55,867 ForkPoolWorker-1 INFO >>>>>>>>> [Inference start] : 2023-04-04 04:45:55 PM | [Process]-65388
+2023-04-04 16:45:55,867 ForkPoolWorker-2 INFO >>>>>>>>> [Inference start] : 2023-04-04 04:45:55 PM | [Process]-65389
+2023-04-04 16:48:47,125 MainProcess INFO >>>>>>>>> [Created] images/199702182_2.jpg: 2023-04-04 04:48:47 PM
+2023-04-04 16:48:47,126 MainProcess INFO >>>>>>>>> [Created] images/201308928_2.jpg: 2023-04-04 04:48:47 PM
+2023-04-04 16:48:47,991 ForkPoolWorker-2 INFO >>>>>>>>> [Inference Result] : {'prediction': 722} | [Process]-65680
+2023-04-04 16:48:47,991 ForkPoolWorker-1 INFO >>>>>>>>> [Inference Result] : {'prediction': 659} | [Process]-65679
+2023-04-04 16:48:47,993 ForkPoolWorker-2 INFO >>>>>>>>> [Inference total time] : 0.86 | [Process]-65680
+2023-04-04 16:48:47,993 ForkPoolWorker-1 INFO >>>>>>>>> [Inference total time] : 0.86 | [Process]-65679
+2023-04-04 16:48:47,994 ForkPoolWorker-2 INFO >>>[process]: 65680 | [image]: images/201308928_2.jpg | [process start time]: 2023-04-04 04:48:47 PM | [result]: {'prediction': 722} | [inference start]: 2023-04-04 04:48:47 PM | [inference total time]: 0.86
+2023-04-04 16:48:47,994 ForkPoolWorker-1 INFO >>>[process]: 65679 | [image]: images/199702182_2.jpg | [process start time]: 2023-04-04 04:48:47 PM | [result]: {'prediction': 659} | [inference start]: 2023-04-04 04:48:47 PM | [inference total time]: 0.86

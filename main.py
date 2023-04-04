@@ -25,17 +25,20 @@ from logging.handlers import RotatingFileHandler
 import os
 import time
 from filelog import FileLogging
+import yaml
 
 # __all__ =[
 #     "create_upload_files"
 # ]
 
+with open("config.yaml") as f:
+    cfg = yaml.load(f, Loader=yaml.FullLoader)
+
 # logger = logging.getLogger('inference_history')
 # logger.setLevel(logging.DEBUG)
 
-log_dir = '/Users/hyeri/cloudai/sko-xray-poc/logs'
-log_fname = 'log.txt'
-path = os.path.join(log_dir, log_fname)
+
+path = os.path.join(cfg['log_dir'], cfg['log_main_file'])
 
 # rotating_file_handler = RotatingFileHandler(path, mode='w', maxBytes=1024, backupCount=5)
 # formatter = logging.Formatter('[%(levelname)s] :: %(asctime)s :: %(module)s ::%(name)s :: %(message)s\n')
@@ -48,13 +51,12 @@ path = os.path.join(log_dir, log_fname)
 logger = FileLogging('infer', path)
 log = logger.rotating_file_handler()
 
-cuda = False
-lr = 0.001
+
 '''
 model load 
 
 '''
-device = torch.device("cuda" if cuda else "cpu")
+device = torch.device("cuda" if cfg['cuda'] else "cpu")
 #model structure load
 model = TestModel()
 
@@ -88,7 +90,7 @@ app = FastAPI()
 async def inference(request: Base64Request):
     
     image = base64_img_to_str(request.base64_image)
-    infer_model = InferenceModel(model, device, 'resnet18', '1.1')
+    infer_model = InferenceModel(model, device)
     result = infer_model.inference(image)
     return {"prediction":result}
     
@@ -98,7 +100,7 @@ async def inference(request: Base64Request):
           summary="inference folder all img")
 @inject
 async def inference_path(path: BaseResponse):
-    infer_model = InferenceModel(model, device, 'resnet18', '1.1')
+    infer_model = InferenceModel(model, device)
     pred = infer_model.inference_all(path.img_folder)
     return {"prediction": pred}
 
@@ -111,13 +113,13 @@ async def inference_image(path: BaseResponse):
     
     with open(path.img_folder, 'rb') as f:
         img_data = f.read()
-        
-    # dataByteIo = io.BytesIO(img_data)
-    # image = Image.open(dataByteIo).convert('RGB')
-    # array_image = cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)        
     
-    infer_model = InferenceModel(model, device, 'resnet18', '1.1')
+    if len(img_data) == 0:
+        raise ValueError("image가 존재하지 않습니다.")
+
+    infer_model = InferenceModel(model, device)
     pred = infer_model.inference(img_data)
+    
     return {"prediction": pred}
 
 
@@ -131,12 +133,9 @@ async def create_upload_files(imagefile: UploadFile = File(...)):
     start_time = time.time()
     
     image_bytes = await imagefile.read()
-    dataByteIo = io.BytesIO(image_bytes)
-    # image = Image.open(dataByteIo).convert('RGB')
-    # array_image = cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
-    
+
     img_load_end = time.time()
-    infer_model = InferenceModel(model, device, 'resnet18', '1.1')
+    infer_model = InferenceModel(model, device)
     
     result = infer_model.inference(image_bytes)
     #end time
@@ -144,8 +143,8 @@ async def create_upload_files(imagefile: UploadFile = File(...)):
     
     msg = str(
                 {"image_id": imagefile.filename,
-               "model_name": infer_model.model_name,
-                "model_version": infer_model.model_version,
+            #    "model_name": infer_model.model_name,
+                # "model_version": infer_model.model_version,
                 "image load time": np.round(img_load_end - start_time, 3),
                 "inference time": np.round(end_time - img_load_end, 3)
                }
@@ -156,50 +155,11 @@ async def create_upload_files(imagefile: UploadFile = File(...)):
     return {"prediction":result}
 
 
-# @app.post("/uploadimages/",
-#           status_code=status.HTTP_200_OK,
-#           summary="upload image files")
-# @inject
-# async def create_upload_files(imagefile: UploadFile = File(...)):
-#     #start time 
-#     start_time = time.time()
-    
-#     image_bytes = await imagefile.read()
-#     dataByteIo = io.BytesIO(image_bytes)
-#     image = Image.open(dataByteIo).convert('RGB')
-#     array_image = cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
-    
-#     img_load_end = time.time()
-#     infer_model = InferenceModel(model, device, 'resnet18', '1.1')
-    
-#     result = infer_model.inference(array_image)
-#     #end time
-#     end_time = time.time()
-    
-#     msg = str(
-#                 {"image_id": imagefile.filename,
-#                "model_name": infer_model.model_name,
-#                 "model_version": infer_model.model_version,
-#                 "image load time": np.round(img_load_end - start_time, 3),
-#                 "inference time": np.round(end_time - img_load_end, 3)
-#                }
-#     )
-    
-#     log.debug(msg)
-    
-#     return {"prediction":result}
 
-
-
-
-
-
-
-
-
-# @app.post("/stat/", 
-#           status_code=status.HTTP_200_OK,
-#           summary="stat")
-# @inject
-# async def stat(log):
+@app.post("/stat/", 
+          status_code=status.HTTP_200_OK,
+          summary="stat")
+@inject
+async def stat():
+    return {'aa'}
     

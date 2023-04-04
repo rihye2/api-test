@@ -1,0 +1,10 @@
+model_name: 'resnet-test'
+model_version: 'test-1.1'
+batch_size: 1
+lr: 0.001
+cuda: False
+#device: 
+
+log_dir: '/Users/hyeri/cloudai/sko-xray-poc/logs'
+log_main_file: 'log.txt'
+logging_file: 'edge.log'

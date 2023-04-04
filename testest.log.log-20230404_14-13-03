@@ -1,0 +1,44 @@
+2023-04-04 13:59:04,064 SpawnPoolWorker-5 INFO >>>>>>>>> [Image path] : /Users/hyeri/cloudai/sko-xray-poc/images/7_1.jpg [Process time] - 2023-04-04 01:59:04 PM | [Process]-56802 
+2023-04-04 13:59:04,066 SpawnPoolWorker-5 INFO >>>>>>>>> [Inference start] : 2023-04-04 01:59:04 PM | [Process]-56802
+2023-04-04 13:59:04,831 SpawnPoolWorker-5 INFO >>>>>>>>> [Inference Result] : {'prediction': 551} | [Process]-56802
+2023-04-04 13:59:04,831 SpawnPoolWorker-5 INFO >>>>>>>>> [Inference total time] : 0.765 | [Process]-56802
+2023-04-04 14:12:03,639 MainProcess INFO >>>>>>>>> [Created] /Users/hyeri/cloudai/sko-xray-poc/images/1.jpg: 2023-04-04 02:12:03 PM
+2023-04-04 14:12:03,639 MainProcess INFO >>>>>>>>> [Created] /Users/hyeri/cloudai/sko-xray-poc/images/2.jpg: 2023-04-04 02:12:03 PM
+2023-04-04 14:12:03,640 MainProcess INFO >>>>>>>>> [Created] /Users/hyeri/cloudai/sko-xray-poc/images/3.jpg: 2023-04-04 02:12:03 PM
+2023-04-04 14:12:03,640 MainProcess INFO >>>>>>>>> [Created] /Users/hyeri/cloudai/sko-xray-poc/images/4.jpg: 2023-04-04 02:12:03 PM
+2023-04-04 14:12:03,640 SpawnPoolWorker-3 INFO >>>>>>>>> [Image path] : /Users/hyeri/cloudai/sko-xray-poc/images/1.jpg | [Process time] - 2023-04-04 02:12:03 PM | [Process]-57809 
+2023-04-04 14:12:03,640 SpawnPoolWorker-3 INFO >>>>>>>>> [Inference start] : 2023-04-04 02:12:03 PM | [Process]-57809
+2023-04-04 14:12:03,641 MainProcess INFO >>>>>>>>> [Created] /Users/hyeri/cloudai/sko-xray-poc/images/5.jpg: 2023-04-04 02:12:03 PM
+2023-04-04 14:12:03,641 SpawnPoolWorker-1 INFO >>>>>>>>> [Image path] : /Users/hyeri/cloudai/sko-xray-poc/images/2.jpg | [Process time] - 2023-04-04 02:12:03 PM | [Process]-57807 
+2023-04-04 14:12:03,641 SpawnPoolWorker-1 INFO >>>>>>>>> [Inference start] : 2023-04-04 02:12:03 PM | [Process]-57807
+2023-04-04 14:12:03,641 SpawnPoolWorker-4 INFO >>>>>>>>> [Image path] : /Users/hyeri/cloudai/sko-xray-poc/images/3.jpg | [Process time] - 2023-04-04 02:12:03 PM | [Process]-57810 
+2023-04-04 14:12:03,641 SpawnPoolWorker-4 INFO >>>>>>>>> [Inference start] : 2023-04-04 02:12:03 PM | [Process]-57810
+2023-04-04 14:12:03,641 SpawnPoolWorker-2 INFO >>>>>>>>> [Image path] : /Users/hyeri/cloudai/sko-xray-poc/images/4.jpg | [Process time] - 2023-04-04 02:12:03 PM | [Process]-57808 
+2023-04-04 14:12:03,641 SpawnPoolWorker-2 INFO >>>>>>>>> [Inference start] : 2023-04-04 02:12:03 PM | [Process]-57808
+2023-04-04 14:12:03,642 SpawnPoolWorker-5 INFO >>>>>>>>> [Image path] : /Users/hyeri/cloudai/sko-xray-poc/images/5.jpg | [Process time] - 2023-04-04 02:12:03 PM | [Process]-57811 
+2023-04-04 14:12:03,642 SpawnPoolWorker-5 INFO >>>>>>>>> [Inference start] : 2023-04-04 02:12:03 PM | [Process]-57811
+2023-04-04 14:12:05,239 MainProcess INFO >>>>>>>>> [Created] /Users/hyeri/cloudai/sko-xray-poc/images/1.jpg: 2023-04-04 02:12:05 PM
+2023-04-04 14:12:05,240 SpawnPoolWorker-3 INFO >>>>>>>>> [Image path] : /Users/hyeri/cloudai/sko-xray-poc/images/1.jpg | [Process time] - 2023-04-04 02:12:05 PM | [Process]-57809 
+2023-04-04 14:12:05,240 SpawnPoolWorker-3 INFO >>>>>>>>> [Inference start] : 2023-04-04 02:12:05 PM | [Process]-57809
+2023-04-04 14:12:05,250 MainProcess INFO >>>>>>>>> [Created] /Users/hyeri/cloudai/sko-xray-poc/images/2.jpg: 2023-04-04 02:12:05 PM
+2023-04-04 14:12:05,250 MainProcess INFO >>>>>>>>> [Created] /Users/hyeri/cloudai/sko-xray-poc/images/3.jpg: 2023-04-04 02:12:05 PM
+2023-04-04 14:12:05,251 MainProcess INFO >>>>>>>>> [Created] /Users/hyeri/cloudai/sko-xray-poc/images/4.jpg: 2023-04-04 02:12:05 PM
+2023-04-04 14:12:05,251 SpawnPoolWorker-5 INFO >>>>>>>>> [Image path] : /Users/hyeri/cloudai/sko-xray-poc/images/2.jpg | [Process time] - 2023-04-04 02:12:05 PM | [Process]-57811 
+2023-04-04 14:12:05,251 SpawnPoolWorker-5 INFO >>>>>>>>> [Inference start] : 2023-04-04 02:12:05 PM | [Process]-57811
+2023-04-04 14:12:05,251 MainProcess INFO >>>>>>>>> [Created] /Users/hyeri/cloudai/sko-xray-poc/images/5.jpg: 2023-04-04 02:12:05 PM
+2023-04-04 14:12:05,251 SpawnPoolWorker-2 INFO >>>>>>>>> [Image path] : /Users/hyeri/cloudai/sko-xray-poc/images/3.jpg | [Process time] - 2023-04-04 02:12:05 PM | [Process]-57808 
+2023-04-04 14:12:05,251 SpawnPoolWorker-2 INFO >>>>>>>>> [Inference start] : 2023-04-04 02:12:05 PM | [Process]-57808
+2023-04-04 14:12:05,251 SpawnPoolWorker-4 INFO >>>>>>>>> [Image path] : /Users/hyeri/cloudai/sko-xray-poc/images/4.jpg | [Process time] - 2023-04-04 02:12:05 PM | [Process]-57810 
+2023-04-04 14:12:05,251 SpawnPoolWorker-4 INFO >>>>>>>>> [Inference start] : 2023-04-04 02:12:05 PM | [Process]-57810
+2023-04-04 14:12:05,252 SpawnPoolWorker-1 INFO >>>>>>>>> [Image path] : /Users/hyeri/cloudai/sko-xray-poc/images/5.jpg | [Process time] - 2023-04-04 02:12:05 PM | [Process]-57807 
+2023-04-04 14:12:05,252 SpawnPoolWorker-1 INFO >>>>>>>>> [Inference start] : 2023-04-04 02:12:05 PM | [Process]-57807
+2023-04-04 14:13:02,571 MainProcess INFO >>>>>>>>> [Created] /Users/hyeri/cloudai/sko-xray-poc/images/199803145_2.jpg: 2023-04-04 02:13:02 PM
+2023-04-04 14:13:02,571 MainProcess INFO >>>>>>>>> [Created] /Users/hyeri/cloudai/sko-xray-poc/images/200307647_1.jpg: 2023-04-04 02:13:02 PM
+2023-04-04 14:13:02,571 SpawnPoolWorker-3 INFO >>>>>>>>> [Image path] : /Users/hyeri/cloudai/sko-xray-poc/images/199803145_2.jpg | [Process time] - 2023-04-04 02:13:02 PM | [Process]-57809 
+2023-04-04 14:13:02,572 SpawnPoolWorker-2 INFO >>>>>>>>> [Image path] : /Users/hyeri/cloudai/sko-xray-poc/images/200307647_1.jpg | [Process time] - 2023-04-04 02:13:02 PM | [Process]-57808 
+2023-04-04 14:13:02,572 SpawnPoolWorker-3 INFO >>>>>>>>> [Inference start] : 2023-04-04 02:13:02 PM | [Process]-57809
+2023-04-04 14:13:02,572 SpawnPoolWorker-2 INFO >>>>>>>>> [Inference start] : 2023-04-04 02:13:02 PM | [Process]-57808
+2023-04-04 14:13:02,857 SpawnPoolWorker-2 INFO >>>>>>>>> [Inference Result] : {'prediction': 813} | [Process]-57808
+2023-04-04 14:13:02,857 SpawnPoolWorker-2 INFO >>>>>>>>> [Inference total time] : 0.285 | [Process]-57808
+2023-04-04 14:13:03,221 SpawnPoolWorker-3 INFO >>>>>>>>> [Inference Result] : {'prediction': 714} | [Process]-57809
+2023-04-04 14:13:03,221 SpawnPoolWorker-3 INFO >>>>>>>>> [Inference total time] : 0.65 | [Process]-57809
