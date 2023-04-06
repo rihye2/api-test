@@ -1,3 +1,25 @@
+import multiprocessing
+import time
+import requests
+import numpy as np
+from time_format import time_format
+import yaml
+import logging
+import logging.config
+
+with open("watcher/conf/config.yaml") as f:
+    cfg = yaml.load(f, Loader=yaml.FullLoader)
+
+
+def setup_logging():
+    with open('watcher/conf/log.yaml', 'r') as f:
+        config = yaml.safe_load(f.read())
+        logging.config.dictConfig(config)
+        
+    logger = logging.getLogger('child_logger')
+    return logger
+
+
 # 필요한 모듈 import
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler 
@@ -9,7 +31,7 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 # logger 및 process 모듈 import
 from filehandler import MultiprocessingHandler
-from multiprocessing import current_process
+
 from multiprocess_logging import mpLogging
 import logging
 import time
@@ -31,7 +53,14 @@ class Watcher:
         formatter = logging.Formatter("%(asctime)s %(processName)s %(levelname)s %(message)s")
         self._handler.suffix = 'log-%Y%m%d'
         self._handler.setFormatter(formatter)
+    
+    # def setup_logging():
+    #     with open('watcher/conf/log.yaml', 'r') as f:
+    #         config = yaml.safe_load(f.read())
+    #     logging.config.dictConfig(config)
         
+    #     logger = logging.getLogger('child_logger')
+    #     return logger    
 
     def run(self): 
         logger = logging.getLogger()
@@ -82,7 +111,8 @@ def fn_process(img_path):
 
 # Global 변수 선언
 multilogging = MultiprocessingHandler()
-logger = multilogging.logging_child()
+logger = setup_logging()
+# logger = multilogging.logging_child()
 mplogger = mpLogging(logger)
 
 if __name__ == '__main__':

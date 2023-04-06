@@ -1,0 +1,35 @@
+
+version: 1
+disable_existing_loggers: False
+
+formatters:
+  default_formatter:
+    format: '%(asctime)s %(processName)s %(levelname)s %(message)s'
+
+handlers:
+  rotating_file_handler:
+    class: logging.handlers.TimedRotatingFileHandler
+    filename: logconfig.log
+    when: H
+    interval: 1
+    backupCount: 5
+    formatter: default_formatter
+
+  watcher_file_handler:
+    class: logging.handlers.TimedRotatingFileHandler
+    filename: watcherlog.log
+    when: H
+    interval: 1
+    backupCount: 5
+    formatter: default_formatter
+
+loggers:
+  child_logger:
+    level: INFO
+    handlers: [rotating_file_handler]
+    propagate: no
+
+  watcher:
+    level: INFO
+    handler: [watcher_file_handler]
+    propagate: no

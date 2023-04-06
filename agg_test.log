@@ -1,4 +1,4 @@
-2023-04-04 16:56:18,462 MainProcess INFO >>>>>>>>> [Created] images/199702182_2.jpg: 2023-04-04 04:56:18 PM
-2023-04-04 16:56:18,462 MainProcess INFO >>>>>>>>> [Created] images/201308928_2.jpg: 2023-04-04 04:56:18 PM
+2023-04-04 16:48:47,994 ForkPoolWorker-2 INFO >>>[process]: 65680 | [image]: images/201308928_2.jpg | [process start time]: 2023-04-04 04:48:47 PM | [result]: {'prediction': 722} | [inference start]: 2023-04-04 04:48:47 PM | [inference total time]: 0.86
+2023-04-04 16:48:47,994 ForkPoolWorker-1 INFO >>>[process]: 65679 | [image]: images/199702182_2.jpg | [process start time]: 2023-04-04 04:48:47 PM | [result]: {'prediction': 659} | [inference start]: 2023-04-04 04:48:47 PM | [inference total time]: 0.86
 2023-04-04 16:56:18,810 ForkPoolWorker-2 INFO >>>[process]: 66191 | [image]: images/201308928_2.jpg | [process start time]: 2023-04-04 04:56:18 PM | [result]: {'prediction': 722} | [inference start]: 2023-04-04 04:56:18 PM | [inference total time]: 0.345
 2023-04-04 16:56:19,311 ForkPoolWorker-1 INFO >>>[process]: 66190 | [image]: images/199702182_2.jpg | [process start time]: 2023-04-04 04:56:18 PM | [result]: {'prediction': 659} | [inference start]: 2023-04-04 04:56:18 PM | [inference total time]: 0.845

@@ -1,0 +1,5 @@
+2023-04-05 15:05:40,161 SpawnPoolWorker-3 INFO >>>[process]: 87005 | [image]: /Users/hyeri/cloudai/api-test/images/199702182_2.jpg | [process start time]: 2023-04-05 03:05:39 PM | [result]: {'prediction': 659} | [inference start]: 2023-04-05 03:05:39 PM | [inference total time]: 0.829
+2023-04-05 15:08:30,495 MainProcess INFO >>>>>>>>> [Created] /Users/hyeri/cloudai/api-test/images/199702182_2.jpg: 2023-04-05 03:08:30 PM
+2023-04-05 15:08:30,496 MainProcess INFO >>>>>>>>> [Created] /Users/hyeri/cloudai/api-test/images/201308928_2.jpg: 2023-04-05 03:08:30 PM
+2023-04-05 15:08:31,276 SpawnPoolWorker-1 INFO >>>[process]: 87212 | [image]: /Users/hyeri/cloudai/api-test/images/199702182_2.jpg | [process start time]: 2023-04-05 03:08:30 PM | [result]: {'prediction': 659} | [inference start]: 2023-04-05 03:08:30 PM | [inference total time]: 0.78
+2023-04-05 15:08:31,276 SpawnPoolWorker-2 INFO >>>[process]: 87213 | [image]: /Users/hyeri/cloudai/api-test/images/201308928_2.jpg | [process start time]: 2023-04-05 03:08:30 PM | [result]: {'prediction': 722} | [inference start]: 2023-04-05 03:08:30 PM | [inference total time]: 0.78

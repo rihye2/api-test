@@ -13,7 +13,7 @@ class mpLogging():
     def __init__(self, logger):
         self.logger = logger
         
-    def infer(self, img_path, process_id):
+    def infer(self, img_path):
         
         infer_start, str_infer_time = time_format()
         
@@ -30,16 +30,25 @@ class mpLogging():
         msg = f'[result]: {output} | [inference start]: {str_infer_time} | [inference total time]: {infer_time}'
         
         return msg 
+    
     def print_process(self, img_path):
-        # time.sleep(2)
+        
         _, str_process_time = time_format()
+        # time.sleep(2)
         c_proc = multiprocessing.current_process()
         process_id = c_proc.pid
         # process_name = c_proc.name
         
-        msg = self.infer(img_path, process_id)
+        msg = self.infer(img_path)
         
         self.logger.info(f">>>[process]: {process_id} | [image]: {img_path} | [process start time]: {str_process_time} | {msg}")
         
         return img_path
     
+
+
+# class watcherLogging():
+#     def __init__(self, logger):
+#         self.logger = logger
+        
+#     def log_created(self, img_path)

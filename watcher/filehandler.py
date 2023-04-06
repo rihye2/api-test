@@ -20,7 +20,7 @@ class MultiprocessingHandler(logging.Handler):
         self._handler.setFormatter(formatter)
         
         logger = logging.getLogger()
-        logger.setLevel(logging.DEBUG)
+        logger.setLevel(logging.INFO)
         logger.addHandler(self._handler)
         
         return logger

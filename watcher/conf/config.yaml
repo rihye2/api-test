@@ -5,6 +5,8 @@ url_uploadimages: 'http://localhost:8000/uploadimages'
 url_base64str: 'http://localhost:8000/inference_base64str'
 # log_save_path: 'watcher/logging'
 
+log_save_process: 'watcher/logging'
+log_process_filename: 'test.log'
 
 
 
