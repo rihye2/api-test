@@ -45,10 +45,3 @@ class mpLogging():
         
         return img_path
     
-
-
-# class watcherLogging():
-#     def __init__(self, logger):
-#         self.logger = logger
-        
-#     def log_created(self, img_path)

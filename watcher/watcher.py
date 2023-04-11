@@ -18,9 +18,9 @@ from time_format import time_format
 
 
 class Watcher:
-    def __init__(self, path, logger):
+    def __init__(self, img_path, logger):
         self.observer = Observer() # Observer 객체 생성
-        self.path = path
+        self.img_path = img_path
 
         # self.logger = logger
         self._handler = TimedRotatingFileHandler('watcher.log',
@@ -38,10 +38,10 @@ class Watcher:
         logger.setLevel(logging.INFO)
         logger.addHandler(self._handler)
         
-        event_handler = CustomHandler(self.path, logger)
+        event_handler = CustomHandler(self.img_path, logger)
         
         # observer에 event_handler 등록
-        self.observer.schedule(event_handler, self.path, recursive=True)
+        self.observer.schedule(event_handler, self.img_path, recursive=True)
         self.observer.start()
 
         try:
@@ -91,7 +91,7 @@ if __name__ == '__main__':
 
     pool = Pool(5)
 
-    watcher = Watcher(path='images', logger=logger)
+    watcher = Watcher(img_path='images', logger=logger)
     watcher.run()
     
     pool.close()

@@ -38,7 +38,7 @@ with open("config.yaml") as f:
 # logger.setLevel(logging.DEBUG)
 
 
-path = os.path.join(cfg['log_dir'], cfg['log_main_file'])
+# path = os.path.join(cfg['log_dir'], cfg['log_main_file'])
 
 # rotating_file_handler = RotatingFileHandler(path, mode='w', maxBytes=1024, backupCount=5)
 # formatter = logging.Formatter('[%(levelname)s] :: %(asctime)s :: %(module)s ::%(name)s :: %(message)s\n')
@@ -48,8 +48,8 @@ path = os.path.join(cfg['log_dir'], cfg['log_main_file'])
 # logger.addHandler(rotating_file_handler)
 
 
-logger = FileLogging('infer', path)
-log = logger.rotating_file_handler()
+# logger = FileLogging('infer', path)
+# log = logger.rotating_file_handler()
 
 
 '''
@@ -90,6 +90,7 @@ app = FastAPI()
 async def inference(request: Base64Request):
     
     image = base64_img_to_str(request.base64_image)
+    
     infer_model = InferenceModel(model, device)
     result = infer_model.inference(image)
     return {"prediction":result}
@@ -100,6 +101,7 @@ async def inference(request: Base64Request):
           summary="inference folder all img")
 @inject
 async def inference_path(path: BaseResponse):
+    
     infer_model = InferenceModel(model, device)
     pred = infer_model.inference_all(path.img_folder)
     return {"prediction": pred}
@@ -119,7 +121,7 @@ async def inference_image(path: BaseResponse):
 
     infer_model = InferenceModel(model, device)
     pred = infer_model.inference(img_data)
-    
+
     return {"prediction": pred}
 
 
@@ -134,23 +136,23 @@ async def create_upload_files(imagefile: UploadFile = File(...)):
     
     image_bytes = await imagefile.read()
 
-    img_load_end = time.time()
+    
     infer_model = InferenceModel(model, device)
     
     result = infer_model.inference(image_bytes)
     #end time
-    end_time = time.time()
     
-    msg = str(
-                {"image_id": imagefile.filename,
-            #    "model_name": infer_model.model_name,
-                # "model_version": infer_model.model_version,
-                "image load time": np.round(img_load_end - start_time, 3),
-                "inference time": np.round(end_time - img_load_end, 3)
-               }
-    )
     
-    log.debug(msg)
+    # msg = str(
+    #             {"image_id": imagefile.filename,
+    #         #    "model_name": infer_model.model_name,
+    #             # "model_version": infer_model.model_version,
+    #             "image load time": np.round(img_load_end - start_time, 3),
+    #             "inference time": np.round(end_time - img_load_end, 3)
+    #            }
+    # )
+    
+    # log.debug(msg)
     
     return {"prediction":result}
 

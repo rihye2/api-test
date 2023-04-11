@@ -2,13 +2,12 @@ import os
 import numpy as np
 import cv2
 import torch
-import torch.nn as nn
 from PIL import Image
 import pandas as pd
 from torchvision import transforms
 
 
-## 데이터 로더를 구현하기
+# 데이터 로더를 구현하기
 class Dataset(torch.utils.data.Dataset):
     def __init__(self, transform=None):
         self.transform = transform
